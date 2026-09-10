@@ -3541,6 +3541,14 @@ if ("serviceWorker" in navigator) {
       .catch(error => console.error("Service worker registration failed:", error));
   });
 }
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("StudyMate AI service worker registered"))
+      .catch(error => console.log("Service worker error:", error));
+  });
+}
 </script>
 </body>
   </html>
