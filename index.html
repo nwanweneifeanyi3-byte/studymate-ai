@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#080d1c">
+<link rel="apple-touch-icon" href="icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d1c">
+<title>StudyMate AI</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+margin:0;
+padding:0;
+width:100%;
+min-height:100%;
+font-family:Arial,Helvetica,sans-serif;
+background:#080d1c;
+color:#fff;
+}
+
+body{overflow-x:hidden}
+
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.app{
+width:100%;
+max-width:680px;
+margin:auto;
+min-height:100vh;
+padding-bottom:90px;
+}
+
+.screen{padding:18px}
+
+.center{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:18px;
+}
+
+.logo{
+width:78px;
+height:78px;
+border-radius:24px;
+background:linear-gradient(135deg,#635bff,#a15cff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+font-weight:900;
+margin:0 auto 18px;
+box-shadow:0 15px 40px rgba(99,91,255,.3);
+}
+
+.card{
+background:#11182b;
+border:1px solid rgba(255,255,255,.08);
+border-radius:20px;
+padding:17px;
+margin-bottom:14px;
+}
+
+h1,h2,h3,p{margin-top:0}
+h1{font-size:30px}
+h2{font-size:23px}
+
+p{
+color:#9ca8c5;
+line-height:1.5;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:7px;
+color:#cbd3e7;
+}
+
+.input-group{margin-bottom:15px}
+
+input,select{
+width:100%;
+padding:13px;
+border-radius:13px;
+border:1px solid rgba(255,255,255,.09);
+background:#080e1e;
+color:#fff;
+outline:none;
+}
+
+input:focus,select:focus{border-color:#7068ff}
+
+.btn{
+width:100%;
+padding:14px;
+margin-top:8px;
+border:0;
+border-radius:14px;
+background:linear-gradient(135deg,#655dff,#9a58ff);
+color:#fff;
+font-weight:bold;
+}
+
+.btn.secondary{background:#19233d}
+.btn.danger{background:#49202d}
+
+.topbar{
+height:65px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:10px 18px;
+}
+
+.brand{
+font-size:20px;
+font-weight:900;
+}
+
+.brand span{color:#8179ff}
+
+.avatar{
+width:43px;
+height:43px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+background:linear-gradient(135deg,#655dff,#9b59ff);
+}
+
+.greeting{padding:15px 18px 5px}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.stat{
+background:#11182b;
+border:1px solid rgba(255,255,255,.08);
+border-radius:17px;
+padding:15px;
+}
+
+.stat span{
+font-size:12px;
+color:#8f9bb8;
+}
+
+.stat b{
+font-size:25px;
+display:block;
+margin-top:5px;
+}
+
+.stat .mini{
+font-size:11px;
+color:#7f8ba7;
+font-weight:normal;
+}
+
+.section-title{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:20px 0 10px;
+}
+
+.subject-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.subject-card{
+background:#121b31;
+border:1px solid rgba(255,255,255,.08);
+border-radius:16px;
+padding:14px;
+}
+
+.subject-icon{
+font-size:25px;
+margin-bottom:7px;
+}
+
+.subject-card small{color:#8995b1}
+
+.chips{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.chip{
+border:1px solid rgba(255,255,255,.1);
+background:#0c1324;
+color:#cbd3e7;
+padding:9px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+}
+
+.chip.selected{
+background:rgba(102,94,255,.2);
+border-color:#756dff;
+color:#fff;
+}
+
+.nav{
+position:fixed;
+left:50%;
+bottom:0;
+transform:translateX(-50%);
+width:100%;
+max-width:680px;
+height:72px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+background:#090f20;
+border-top:1px solid rgba(255,255,255,.08);
+z-index:50;
+}
+
+.nav button{
+border:0;
+background:none;
+color:#78849f;
+font-size:11px;
+font-weight:bold;
+}
+
+.nav button.active{color:#8c84ff}
+
+.nav-icon{
+display:block;
+font-size:21px;
+margin-bottom:3px;
+}
+
+.progress{
+height:8px;
+background:#202a43;
+border-radius:20px;
+overflow:hidden;
+margin:12px 0 18px;
+}
+
+.progress div{
+height:100%;
+background:linear-gradient(90deg,#675fff,#a15cff);
+transition:width .3s ease;
+}
+
+.option{
+width:100%;
+padding:14px;
+margin-top:9px;
+border-radius:14px;
+border:1px solid rgba(255,255,255,.09);
+background:#121b31;
+color:#fff;
+text-align:left;
+}
+
+.option.correct{
+border-color:#27c987;
+background:rgba(39,201,135,.13);
+}
+
+.option.wrong{
+border-color:#ff5c70;
+background:rgba(255,92,112,.13);
+}
+
+.option:disabled{opacity:1}
+
+.question-meta{
+font-size:12px;
+color:#8995b2;
+margin-bottom:12px;
+}
+
+.answer-box{
+background:#0b1223;
+border:1px solid rgba(255,255,255,.08);
+border-radius:14px;
+padding:14px;
+margin-top:15px;
+}
+
+.notice{
+background:#111a30;
+border:1px solid rgba(255,255,255,.08);
+padding:13px;
+border-radius:14px;
+font-size:13px;
+color:#aeb8ce;
+line-height:1.5;
+}
+
+.flashcard{
+width:100%;
+min-height:250px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+background:linear-gradient(145deg,#151f38,#0e1629);
+color:#fff;
+font-size:21px;
+font-weight:bold;
+padding:25px;
+line-height:1.5;
+}
+
+.small-row{
+display:flex;
+gap:8px;
+margin-top:8px;
+}
+
+.small-btn{
+flex:1;
+padding:11px;
+border-radius:11px;
+border:1px solid rgba(255,255,255,.08);
+background:#18223b;
+color:#fff;
+font-weight:bold;
+}
+
+.score-big{
+font-size:55px;
+font-weight:900;
+text-align:center;
+color:#8b83ff;
+margin:20px 0;
+}
+
+.back{
+border:0;
+background:none;
+color:#968fff;
+font-weight:bold;
+padding:0;
+margin-bottom:15px;
+}
+
+.calc-display{
+background:#070c18;
+border:1px solid rgba(255,255,255,.08);
+border-radius:15px;
+padding:18px;
+min-height:65px;
+font-size:28px;
+text-align:right;
+overflow:auto;
+margin-bottom:10px;
+}
+
+.calc-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+.calc-grid button{
+border:0;
+border-radius:13px;
+padding:17px 5px;
+background:#19233d;
+color:#fff;
+font-weight:bold;
+}
+
+.calc-grid .equal{background:#655dff}
+
+.level-badge{
+display:inline-block;
+padding:7px 11px;
+border-radius:20px;
+background:rgba(102,94,255,.15);
+border:1px solid rgba(117,109,255,.35);
+color:#aaa3ff;
+font-size:12px;
+font-weight:bold;
+}
+
+.streak-box{
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:linear-gradient(135deg,#171d39,#211737);
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:16px;
+margin-bottom:14px;
+}
+
+.streak-number{
+font-size:32px;
+font-weight:900;
+}
+
+.xp-bar{
+height:7px;
+background:#202a43;
+border-radius:20px;
+overflow:hidden;
+margin-top:8px;
+}
+
+.xp-bar div{
+height:100%;
+background:linear-gradient(90deg,#655dff,#a15cff);
+}
+
+.goal-item{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.goal-circle{
+width:52px;
+height:52px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#19233d;
+font-weight:900;
+flex-shrink:0;
+}
+
+.empty{
+text-align:center;
+padding:25px 10px;
+color:#8f9bb8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+td{
+padding:10px 3px;
+border-bottom:1px solid rgba(255,255,255,.08);
+font-size:13px;
+color:#b9c2d7;
+}
+
+td:last-child{
+text-align:right;
+color:#fff;
+font-weight:bold;
+}
+
+hr{
+border:0;
+border-top:1px solid rgba(255,255,255,.08);
+margin:16px 0;
+}
+
+@media(max-width:400px){
+.subject-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div id="onboarding" class="center">
+
+<div style="width:100%;max-width:520px">
+
+<div class="logo">S</div>
+
+<div class="card">
+
+<h1 style="text-align:center">StudyMate AI</h1>
+
+<p style="text-align:center">
+Your offline study companion.
+</p>
+
+<div class="input-group">
+<label>Nickname</label>
+<input id="nameInput" type="text" placeholder="Enter your nickname">
+</div>
+
+<div class="input-group">
+<label>School Level</label>
+<select id="levelInput">
+<option value="Primary">Primary</option>
+<option value="Secondary">Secondary</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Class</label>
+<select id="classInput"></select>
+</div>
+
+<div class="input-group">
+<label>Country / Curriculum</label>
+<select id="countryInput">
+<option>Nigeria</option>
+<option>Ghana</option>
+<option>United Kingdom</option>
+<option>United States</option>
+<option>International</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Subjects</label>
+<div id="subjectChips" class="chips"></div>
+</div>
+
+<div class="input-group">
+<label>Focus Topics</label>
+<div id="topicChips" class="chips"></div>
+</div>
+
+<button id="startBtn" class="btn">
+Start Studying 🚀
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div id="app" class="app hidden">
+
+<div class="topbar">
+
+<div class="brand">
+Study<span>Mate</span> AI
+</div>
+
+<div id="avatar" class="avatar">S</div>
+
+</div>
+
+<main id="main"></main>
+
+<div class="nav">
+
+<button data-page="home" class="active">
+<span class="nav-icon">⌂</span>
+Home
+</button>
+
+<button data-page="ask">
+<span class="nav-icon">💬</span>
+Ask
+</button>
+
+<button data-page="quiz">
+<span class="nav-icon">📝</span>
+Quiz
+</button>
+
+<button data-page="flash">
+<span class="nav-icon">📚</span>
+Cards
+</button>
+
+<button data-page="profile">
+<span class="nav-icon">👤</span>
+Profile
+</button>
+
+</div>
+</div>
+
+
+<script>
+"use strict";
+
+
+/* =========================================================
+   SUBJECTS
+========================================================= */
+
+var SUBJECTS={
+
+"Mathematics":{
+icon:"📐",
+topics:["Numbers","Fractions","Algebra","Geometry","Statistics","Mensuration"]
+},
+
+"English Language":{
+icon:"📖",
+topics:["Grammar","Vocabulary","Comprehension","Parts of Speech","Writing"]
+},
+
+"Basic Science":{
+icon:"🔬",
+topics:["Living Things","Matter","Energy","Human Body","Environment"]
+},
+
+"Social Studies":{
+icon:"🌍",
+topics:["Family","Culture","Society","Environment","Citizenship"]
+},
+
+"Civic Education":{
+icon:"⚖️",
+topics:["Rights","Duties","Democracy","Leadership","National Values"]
+},
+
+"Computer Science":{
+icon:"💻",
+topics:["Computer Basics","Hardware","Software","Internet","Programming"]
+},
+
+"Agricultural Science":{
+icon:"🌱",
+topics:["Crops","Livestock","Soil","Farm Tools","Farm Management"]
+},
+
+"Physics":{
+icon:"⚡",
+topics:["Motion","Forces","Energy","Electricity","Waves"]
+},
+
+"Chemistry":{
+icon:"🧪",
+topics:["Matter","Atoms","Periodic Table","Acids and Bases","Chemical Reactions"]
+},
+
+"Biology":{
+icon:"🧬",
+topics:["Cells","Nutrition","Ecology","Genetics","Human Biology"]
+},
+
+"Economics":{
+icon:"💰",
+topics:["Demand and Supply","Production","Markets","Money","National Income"]
+},
+
+"Government":{
+icon:"🏛️",
+topics:["Constitution","Democracy","Political Systems","Citizenship","Institutions"]
+},
+
+"Geography":{
+icon:"🗺️",
+topics:["Maps","Weather","Climate","Population","Earth"]
+},
+
+"History":{
+icon:"🏺",
+topics:["Ancient History","African History","Nigerian History","World History"]
+},
+
+"Further Mathematics":{
+icon:"∑",
+topics:["Functions","Matrices","Calculus","Vectors","Probability"]
+},
+
+"Financial Accounting":{
+icon:"🧾",
+topics:["Accounting Basics","Ledger","Trial Balance","Final Accounts"]
+},
+
+"Commerce":{
+icon:"🏪",
+topics:["Trade","Business","Banking","Insurance","Transportation"]
+},
+
+"Literature":{
+icon:"📕",
+topics:["Drama","Poetry","Prose","Literary Devices"]
+},
+
+"French":{
+icon:"🇫🇷",
+topics:["Greetings","Vocabulary","Grammar","Numbers"]
+},
+
+"Basic Technology":{
+icon:"🔧",
+topics:["Tools","Materials","Safety","Drawing"]
+},
+
+"Physical & Health Education":{
+icon:"🏃",
+topics:["Fitness","Sports","Health","Safety"]
+}
+
+};
+
+
+/* =========================================================
+   QUESTION BANK
+========================================================= */
+
+var QUESTIONS=[
+
+/* MATHEMATICS */
+
+{subject:"Mathematics",topic:"Numbers",level:"Primary",difficulty:"Easy",q:"What is 7 + 8?",o:["13","14","15","16"],a:2,e:"7 + 8 = 15."},
+{subject:"Mathematics",topic:"Numbers",level:"Primary",difficulty:"Easy",q:"What is 45 - 19?",o:["24","26","28","30"],a:1,e:"45 - 19 = 26."},
+{subject:"Mathematics",topic:"Numbers",level:"Primary",difficulty:"Easy",q:"What is 6 × 7?",o:["36","40","42","48"],a:2,e:"6 × 7 = 42."},
+{subject:"Mathematics",topic:"Numbers",level:"Primary",difficulty:"Easy",q:"What is 72 ÷ 8?",o:["7","8","9","10"],a:2,e:"72 ÷ 8 = 9."},
+{subject:"Mathematics",topic:"Fractions",level:"Primary",difficulty:"Easy",q:"Which fraction is equal to one half?",o:["1/3","2/4","3/5","4/7"],a:1,e:"2/4 simplifies to 1/2."},
+{subject:"Mathematics",topic:"Fractions",level:"Primary",difficulty:"Medium",q:"What is 1/4 + 1/4?",o:["1/2","1/3","2/8","3/4"],a:0,e:"Two quarters make one half."},
+{subject:"Mathematics",topic:"Geometry",level:"Primary",difficulty:"Easy",q:"How many sides does a triangle have?",o:["2","3","4","5"],a:1,e:"A triangle has three sides."},
+{subject:"Mathematics",topic:"Geometry",level:"Primary",difficulty:"Easy",q:"How many degrees are in a right angle?",o:["45°","60°","90°","180°"],a:2,e:"A right angle measures 90°."},
+{subject:"Mathematics",topic:"Statistics",level:"Primary",difficulty:"Medium",q:"What is the mean of 2, 4 and 6?",o:["3","4","5","6"],a:1,e:"(2 + 4 + 6) ÷ 3 = 4."},
+{subject:"Mathematics",topic:"Algebra",level:"Secondary",difficulty:"Easy",q:"If x + 5 = 12, what is x?",o:["5","6","7","8"],a:2,e:"Subtract 5 from both sides. x = 7."},
+{subject:"Mathematics",topic:"Algebra",level:"Secondary",difficulty:"Medium",q:"Solve 2x = 18.",o:["6","8","9","12"],a:2,e:"Divide both sides by 2. x = 9."},
+{subject:"Mathematics",topic:"Algebra",level:"Secondary",difficulty:"Medium",q:"Expand 3(x + 2).",o:["3x + 2","3x + 5","3x + 6","x + 6"],a:2,e:"3 multiplied by each term gives 3x + 6."},
+{subject:"Mathematics",topic:"Geometry",level:"Secondary",difficulty:"Medium",q:"The angles in a triangle add up to:",o:["90°","180°","270°","360°"],a:1,e:"The interior angles of a triangle total 180°."},
+{subject:"Mathematics",topic:"Statistics",level:"Secondary",difficulty:"Easy",q:"What is the median of 3, 5, 7, 9, 11?",o:["5","7","8","9"],a:1,e:"The middle number is 7."},
+{subject:"Mathematics",topic:"Mensuration",level:"Secondary",difficulty:"Medium",q:"What is the area of a rectangle 8 cm by 5 cm?",o:["13 cm²","26 cm²","40 cm²","80 cm²"],a:2,e:"Area = length × width = 8 × 5 = 40 cm²."},
+{subject:"Mathematics",topic:"Numbers",level:"Secondary",difficulty:"Easy",q:"What is 15% of 200?",o:["15","20","30","40"],a:2,e:"15/100 × 200 = 30."},
+{subject:"Mathematics",topic:"Numbers",level:"Secondary",difficulty:"Medium",q:"What is the square root of 144?",o:["10","11","12","14"],a:2,e:"12 × 12 = 144."},
+
+/* ENGLISH */
+
+{subject:"English Language",topic:"Grammar",level:"Primary",difficulty:"Easy",q:"Which word is a noun?",o:["Quickly","School","Run","Beautiful"],a:1,e:"School is a noun because it names a place."},
+{subject:"English Language",topic:"Parts of Speech",level:"Primary",difficulty:"Easy",q:"Which word is a verb?",o:["Jump","Blue","Chair","Happiness"],a:0,e:"Jump is an action word, so it is a verb."},
+{subject:"English Language",topic:"Grammar",level:"Primary",difficulty:"Easy",q:"Choose the correct sentence.",o:["She are happy.","She is happy.","She am happy.","She be happy."],a:1,e:"The correct sentence is 'She is happy.'"},
+{subject:"English Language",topic:"Vocabulary",level:"Primary",difficulty:"Easy",q:"What is the opposite of early?",o:["Fast","Late","Quick","Soon"],a:1,e:"The opposite of early is late."},
+{subject:"English Language",topic:"Vocabulary",level:"Primary",difficulty:"Medium",q:"What is a synonym for big?",o:["Tiny","Large","Weak","Short"],a:1,e:"Large has a similar meaning to big."},
+{subject:"English Language",topic:"Parts of Speech",level:"Secondary",difficulty:"Easy",q:"Which word is an adjective?",o:["Quickly","Beautiful","Run","Happiness"],a:1,e:"Beautiful describes a noun, so it is an adjective."},
+{subject:"English Language",topic:"Grammar",level:"Secondary",difficulty:"Easy",q:"What is the past tense of go?",o:["Goed","Gone","Went","Going"],a:2,e:"The simple past tense of go is went."},
+{subject:"English Language",topic:"Vocabulary",level:"Secondary",difficulty:"Medium",q:"What does benevolent mean?",o:["Kind and generous","Very angry","Extremely tired","Careless"],a:0,e:"Benevolent means kind, generous or well-meaning."},
+{subject:"English Language",topic:"Writing",level:"Secondary",difficulty:"Medium",q:"Which is most appropriate for a formal letter?",o:["Hey bro","Dear Sir/Madam","What's up?","Yo!"],a:1,e:"Dear Sir/Madam is a formal salutation."},
+{subject:"English Language",topic:"Grammar",level:"Secondary",difficulty:"Medium",q:"Identify the adverb: She sang beautifully.",o:["She","sang","beautifully","none"],a:2,e:"Beautifully describes how she sang, so it is an adverb."},
+{subject:"English Language",topic:"Vocabulary",level:"Secondary",difficulty:"Easy",q:"The word rapid means:",o:["Slow","Fast","Weak","Small"],a:1,e:"Rapid means happening quickly or fast."},
+
+/* BASIC SCIENCE */
+
+{subject:"Basic Science",topic:"Living Things",level:"Primary",difficulty:"Easy",q:"Which is a living thing?",o:["Stone","Tree","Chair","Bottle"],a:1,e:"A tree is a living organism."},
+{subject:"Basic Science",topic:"Human Body",level:"Primary",difficulty:"Easy",q:"Which organ pumps blood around the body?",o:["Lung","Heart","Kidney","Stomach"],a:1,e:"The heart pumps blood around the body."},
+{subject:"Basic Science",topic:"Energy",level:"Primary",difficulty:"Easy",q:"Which is a natural source of light?",o:["Sun","Stone","Water","Soil"],a:0,e:"The Sun is a natural source of light."},
+{subject:"Basic Science",topic:"Matter",level:"Primary",difficulty:"Easy",q:"Water normally exists as a:",o:["Solid only","Liquid","Gas only","Metal"],a:1,e:"At normal room conditions, water is a liquid."},
+{subject:"Basic Science",topic:"Environment",level:"Primary",difficulty:"Medium",q:"Which gas do humans need for respiration?",o:["Oxygen","Carbon dioxide","Nitrogen only","Hydrogen"],a:0,e:"Humans use oxygen during respiration."},
+{subject:"Basic Science",topic:"Matter",level:"Secondary",difficulty:"Easy",q:"Which state of matter has a fixed shape?",o:["Gas","Liquid","Solid","Plasma"],a:2,e:"Solids have a definite shape."},
+{subject:"Basic Science",topic:"Energy",level:"Secondary",difficulty:"Medium",q:"Energy stored in food is mainly:",o:["Chemical energy","Sound energy","Light energy","Nuclear energy"],a:0,e:"Food stores chemical energy."},
+{subject:"Basic Science",topic:"Human Body",level:"Secondary",difficulty:"Medium",q:"Which organ is mainly responsible for gas exchange?",o:["Heart","Lungs","Liver","Skin"],a:1,e:"Gas exchange occurs mainly in the lungs."},
+{subject:"Basic Science",topic:"Environment",level:"Secondary",difficulty:"Medium",q:"Plants remove which gas during photosynthesis?",o:["Oxygen","Carbon dioxide","Hydrogen","Helium"],a:1,e:"Plants take in carbon dioxide during photosynthesis."},
+{subject:"Basic Science",topic:"Living Things",level:"Secondary",difficulty:"Easy",q:"The basic unit of life is the:",o:["Organ","Tissue","Cell","System"],a:2,e:"The cell is the basic structural and functional unit of life."},
+
+/* COMPUTER SCIENCE */
+
+{subject:"Computer Science",topic:"Computer Basics",level:"Primary",difficulty:"Easy",q:"What does CPU stand for?",o:["Central Processing Unit","Computer Personal Unit","Central Program Utility","Control Processing User"],a:0,e:"CPU means Central Processing Unit."},
+{subject:"Computer Science",topic:"Hardware",level:"Primary",difficulty:"Easy",q:"Which is an input device?",o:["Monitor","Keyboard","Speaker","Printer"],a:1,e:"A keyboard is used to enter data."},
+{subject:"Computer Science",topic:"Hardware",level:"Primary",difficulty:"Easy",q:"Which device displays information?",o:["Monitor","Keyboard","Microphone","Mouse pad"],a:0,e:"A monitor displays visual information."},
+{subject:"Computer Science",topic:"Software",level:"Secondary",difficulty:"Easy",q:"Which is system software?",o:["Operating system","Chair","Keyboard","Monitor"],a:0,e:"An operating system is system software."},
+{subject:"Computer Science",topic:"Internet",level:"Secondary",difficulty:"Easy",q:"What does URL identify?",o:["A web resource address","A keyboard key","A computer virus","A battery"],a:0,e:"A URL is the address used to locate a resource on the web."},
+{subject:"Computer Science",topic:"Programming",level:"Secondary",difficulty:"Medium",q:"Which is a programming language?",o:["Python","Chrome","Windows","Google"],a:0,e:"Python is a programming language."},
+
+/* PHYSICS */
+
+{subject:"Physics",topic:"Motion",level:"Secondary",difficulty:"Easy",q:"What is the SI unit of speed?",o:["metre","metre per second","kilogram","newton"],a:1,e:"Speed is measured in metres per second."},
+{subject:"Physics",topic:"Forces",level:"Secondary",difficulty:"Easy",q:"The SI unit of force is:",o:["Joule","Newton","Watt","Pascal"],a:1,e:"Force is measured in newtons."},
+{subject:"Physics",topic:"Energy",level:"Secondary",difficulty:"Easy",q:"The SI unit of energy is:",o:["Joule","Newton","Volt","Ohm"],a:0,e:"Energy is measured in joules."},
+{subject:"Physics",topic:"Electricity",level:"Secondary",difficulty:"Easy",q:"Electric current is measured in:",o:["Ampere","Volt","Ohm","Joule"],a:0,e:"Current is measured in amperes."},
+{subject:"Physics",topic:"Waves",level:"Secondary",difficulty:"Medium",q:"Sound needs what to travel through?",o:["A medium","Nothing","Only sunlight","Only electricity"],a:0,e:"Sound is a mechanical wave and requires a medium."},
+{subject:"Physics",topic:"Motion",level:"Secondary",difficulty:"Medium",q:"Acceleration is the rate of change of:",o:["Mass","Velocity","Distance","Temperature"],a:1,e:"Acceleration is the rate of change of velocity."},
+{subject:"Physics",topic:"Electricity",level:"Secondary",difficulty:"Medium",q:"Ohm's law is commonly written as:",o:["V = IR","F = ma","E = mc²","P = IV"],a:0,e:"Ohm's law states V = IR."},
+
+/* CHEMISTRY */
+
+{subject:"Chemistry",topic:"Matter",level:"Secondary",difficulty:"Easy",q:"Which particle has a negative charge?",o:["Proton","Neutron","Electron","Nucleus"],a:2,e:"Electrons have a negative charge."},
+{subject:"Chemistry",topic:"Atoms",level:"Secondary",difficulty:"Easy",q:"The center of an atom is called the:",o:["Shell","Nucleus","Molecule","Electron"],a:1,e:"The nucleus is at the center of an atom."},
+{subject:"Chemistry",topic:"Periodic Table",level:"Secondary",difficulty:"Easy",q:"What is the chemical symbol for oxygen?",o:["O","Ox","Og","C"],a:0,e:"O is the chemical symbol for oxygen."},
+{subject:"Chemistry",topic:"Acids and Bases",level:"Secondary",difficulty:"Easy",q:"A substance with pH below 7 is generally:",o:["Acidic","Neutral","Basic","Metallic"],a:0,e:"A pH below 7 is generally acidic."},
+{subject:"Chemistry",topic:"Chemical Reactions",level:"Secondary",difficulty:"Medium",q:"What is a reactant?",o:["A starting substance in a chemical reaction","Always the final product","A measuring tool","A type of atom only"],a:0,e:"Reactants are substances present at the start of a reaction."},
+{subject:"Chemistry",topic:"Atoms",level:"Secondary",difficulty:"Medium",q:"Atomic number equals the number of:",o:["Protons","Neutrons","Shells","Molecules"],a:0,e:"Atomic number is the number of protons."},
+
+/* BIOLOGY */
+
+{subject:"Biology",topic:"Cells",level:"Secondary",difficulty:"Easy",q:"Which organelle controls many activities of a cell?",o:["Nucleus","Ribosome","Cell wall","Vacuole"],a:0,e:"The nucleus contains genetic material and controls many cell activities."},
+{subject:"Biology",topic:"Cells",level:"Secondary",difficulty:"Easy",q:"Which structure is found in plant cells but not typical animal cells?",o:["Cell wall","Cell membrane","Cytoplasm","Nucleus"],a:0,e:"Plant cells have a cellulose cell wall."},
+{subject:"Biology",topic:"Nutrition",level:"Secondary",difficulty:"Easy",q:"Plants make food by:",o:["Photosynthesis","Digestion","Respiration only","Transpiration"],a:0,e:"Plants use photosynthesis to make organic food."},
+{subject:"Biology",topic:"Ecology",level:"Secondary",difficulty:"Easy",q:"An organism that makes its own food is a:",o:["Producer","Consumer","Decomposer","Parasite"],a:0,e:"Producers such as green plants make their own food."},
+{subject:"Biology",topic:"Genetics",level:"Secondary",difficulty:"Medium",q:"The basic unit of heredity is the:",o:["Gene","Organ","Tissue","Food"],a:0,e:"A gene is a unit of heredity."},
+{subject:"Biology",topic:"Human Biology",level:"Secondary",difficulty:"Medium",q:"Which system transports blood around the body?",o:["Circulatory system","Digestive system","Skeletal system","Respiratory system"],a:0,e:"The circulatory system transports blood."},
+
+/* CIVIC */
+
+{subject:"Civic Education",topic:"Rights",level:"Secondary",difficulty:"Easy",q:"A right is best described as:",o:["A freedom or entitlement protected by law","A punishment","A random rule","A debt"],a:0,e:"Rights are freedoms or entitlements recognized and protected by law."},
+{subject:"Civic Education",topic:"Duties",level:"Secondary",difficulty:"Easy",q:"Which is a civic responsibility?",o:["Destroying public property","Obeying laws","Littering","Avoiding school"],a:1,e:"Citizens are expected to obey lawful rules."},
+{subject:"Civic Education",topic:"Democracy",level:"Secondary",difficulty:"Easy",q:"Democracy generally means government by:",o:["One person","The people","The army only","Judges only"],a:1,e:"Democracy involves government by the people."},
+{subject:"Civic Education",topic:"Leadership",level:"Secondary",difficulty:"Medium",q:"A good leader should demonstrate:",o:["Integrity","Dishonesty","Corruption","Selfishness"],a:0,e:"Integrity is an important quality of responsible leadership."},
+{subject:"Civic Education",topic:"National Values",level:"Primary",difficulty:"Easy",q:"Which value encourages telling the truth?",o:["Honesty","Violence","Laziness","Dishonesty"],a:0,e:"Honesty means being truthful."},
+
+/* ECONOMICS */
+
+{subject:"Economics",topic:"Demand and Supply",level:"Secondary",difficulty:"Easy",q:"Demand refers to:",o:["Desire backed by ability and willingness to buy","Only desire","Only production","Government tax"],a:0,e:"Demand includes willingness and ability to purchase."},
+{subject:"Economics",topic:"Demand and Supply",level:"Secondary",difficulty:"Medium",q:"Generally, when price rises, quantity demanded tends to:",o:["Rise","Fall","Stay exactly the same","Become infinite"],a:1,e:"According to the law of demand, quantity demanded generally falls as price rises, other things being equal."},
+{subject:"Economics",topic:"Production",level:"Secondary",difficulty:"Easy",q:"Which is a factor of production?",o:["Land","Wallpaper","Music","Weather forecast"],a:0,e:"Land is one of the traditional factors of production."},
+{subject:"Economics",topic:"Money",level:"Secondary",difficulty:"Easy",q:"Which is a function of money?",o:["Medium of exchange","Causing rainfall","Growing crops","Making laws"],a:0,e:"Money functions as a medium of exchange."},
+
+/* GOVERNMENT */
+
+{subject:"Government",topic:"Democracy",level:"Secondary",difficulty:"Easy",q:"A government elected by citizens is associated with:",o:["Democracy","Anarchy","No government","Absolute rule"],a:0,e:"Elections are an important feature of representative democracy."},
+{subject:"Government",topic:"Constitution",level:"Secondary",difficulty:"Easy",q:"A constitution generally contains:",o:["Fundamental rules of government","Recipes","Sports results","Weather reports"],a:0,e:"A constitution contains fundamental rules and principles of government."},
+{subject:"Government",topic:"Political Systems",level:"Secondary",difficulty:"Medium",q:"The legislature primarily makes:",o:["Laws","Weather","Crops","Vehicles"],a:0,e:"The legislature is the law-making branch in many political systems."},
+{subject:"Government",topic:"Institutions",level:"Secondary",difficulty:"Medium",q:"The judiciary is mainly concerned with:",o:["Interpreting and applying law","Selling goods","Farming","Transportation"],a:0,e:"The judiciary deals with legal disputes and interpretation of law."},
+
+/* GEOGRAPHY */
+
+{subject:"Geography",topic:"Maps",level:"Secondary",difficulty:"Easy",q:"What does a map scale show?",o:["Relationship between map distance and real distance","Temperature","Rainfall","Population age"],a:0,e:"Scale relates distance on a map to actual distance."},
+{subject:"Geography",topic:"Weather",level:"Secondary",difficulty:"Easy",q:"Weather describes atmospheric conditions over:",o:["A relatively short period","Thousands of years only","No period","Only one season"],a:0,e:"Weather concerns short-term atmospheric conditions."},
+{subject:"Geography",topic:"Climate",level:"Secondary",difficulty:"Medium",q:"Climate refers to:",o:["Long-term average weather patterns","Today's temperature only","One rain shower","One wind gust"],a:0,e:"Climate describes long-term patterns of weather."},
+{subject:"Geography",topic:"Population",level:"Secondary",difficulty:"Medium",q:"Population density is generally calculated as population divided by:",o:["Land area","Rainfall","Temperature","Number of rivers"],a:0,e:"Population density = population ÷ land area."},
+
+/* HISTORY */
+
+{subject:"History",topic:"Ancient History",level:"Secondary",difficulty:"Easy",q:"Which civilization developed along the Nile River?",o:["Ancient Egypt","Ancient Japan","Maya","Viking"],a:0,e:"Ancient Egyptian civilization developed along the Nile."},
+{subject:"History",topic:"African History",level:"Secondary",difficulty:"Medium",q:"The Mali Empire was located in:",o:["West Africa","South America","Europe","Australia"],a:0,e:"The Mali Empire was a major West African empire."},
+{subject:"History",topic:"Nigerian History",level:"Secondary",difficulty:"Easy",q:"Nigeria gained independence from Britain in:",o:["1957","1960","1963","1970"],a:1,e:"Nigeria became independent on 1 October 1960."},
+{subject:"History",topic:"World History",level:"Secondary",difficulty:"Medium",q:"The United Nations was established in:",o:["1914","1939","1945","1960"],a:2,e:"The United Nations was established in 1945."},
+
+/* AGRICULTURE */
+
+{subject:"Agricultural Science",topic:"Crops",level:"Primary",difficulty:"Easy",q:"Which is a cereal crop?",o:["Maize","Orange","Mango","Tomato"],a:0,e:"Maize is a cereal crop."},
+{subject:"Agricultural Science",topic:"Livestock",level:"Primary",difficulty:"Easy",q:"Which animal is commonly kept as livestock?",o:["Goat","Lion","Tiger","Eagle"],a:0,e:"Goats are commonly reared as livestock."},
+{subject:"Agricultural Science",topic:"Soil",level:"Secondary",difficulty:"Easy",q:"Which soil type generally has good drainage?",o:["Sandy soil","Heavy clay","Plastic","Rock"],a:0,e:"Sandy soil has relatively large particles and usually drains quickly."},
+{subject:"Agricultural Science",topic:"Farm Tools",level:"Secondary",difficulty:"Easy",q:"Which tool is commonly used for clearing vegetation?",o:["Cutlass","Ruler","Pencil","Compass"],a:0,e:"A cutlass is commonly used for clearing vegetation."},
+
+/* ACCOUNTING */
+
+{subject:"Financial Accounting",topic:"Accounting Basics",level:"Secondary",difficulty:"Easy",q:"Accounting mainly involves:",o:["Recording and reporting financial information","Cooking","Drawing maps","Playing sports"],a:0,e:"Accounting records, classifies, summarizes and communicates financial information."},
+{subject:"Financial Accounting",topic:"Ledger",level:"Secondary",difficulty:"Easy",q:"A ledger contains:",o:["Accounts","Only invoices","Maps","Weather charts"],a:0,e:"A ledger contains individual accounts."},
+{subject:"Financial Accounting",topic:"Trial Balance",level:"Secondary",difficulty:"Medium",q:"A trial balance is prepared mainly to check:",o:["Arithmetical equality of debits and credits","Weather","Employee age","Product color"],a:0,e:"A trial balance checks whether total debits equal total credits."},
+
+/* COMMERCE */
+
+{subject:"Commerce",topic:"Trade",level:"Secondary",difficulty:"Easy",q:"Trade is the:",o:["Buying and selling of goods and services","Production of rain","Study of stars","Writing poems"],a:0,e:"Trade involves the exchange of goods and services."},
+{subject:"Commerce",topic:"Banking",level:"Secondary",difficulty:"Easy",q:"A bank commonly:",o:["Accepts deposits and provides financial services","Builds roads only","Produces weather","Runs hospitals only"],a:0,e:"Banks provide services including deposits, payments and lending."},
+{subject:"Commerce",topic:"Insurance",level:"Secondary",difficulty:"Medium",q:"Insurance is mainly used to:",o:["Manage financial risk","Guarantee no accidents","Create rainfall","Increase gravity"],a:0,e:"Insurance helps people and organizations manage certain financial risks."},
+
+/* LITERATURE */
+
+{subject:"Literature",topic:"Literary Devices",level:"Secondary",difficulty:"Easy",q:"A comparison using like or as is a:",o:["Simile","Metaphor","Irony","Pun"],a:0,e:"A simile compares things using words such as like or as."},
+{subject:"Literature",topic:"Drama",level:"Secondary",difficulty:"Easy",q:"A play is primarily intended to be:",o:["Performed","Calculated","Measured","Planted"],a:0,e:"Drama is written for performance."},
+{subject:"Literature",topic:"Poetry",level:"Secondary",difficulty:"Medium",q:"A repeated pattern of beats in poetry is called:",o:["Rhythm","Setting","Plot","Character"],a:0,e:"Rhythm refers to patterns of stressed and unstressed sounds."},
+
+/* FRENCH */
+
+{subject:"French",topic:"Greetings",level:"Primary",difficulty:"Easy",q:"What does Bonjour mean?",o:["Hello/Good day","Goodbye","Thank you","Please"],a:0,e:"Bonjour means hello or good day."},
+{subject:"French",topic:"Greetings",level:"Primary",difficulty:"Easy",q:"What does Merci mean?",o:["Hello","Thank you","Goodbye","Yes"],a:1,e:"Merci means thank you."},
+{subject:"French",topic:"Numbers",level:"Primary",difficulty:"Easy",q:"What does deux mean?",o:["One","Two","Three","Four"],a:1,e:"Deux means two."},
+
+/* BASIC TECHNOLOGY */
+
+{subject:"Basic Technology",topic:"Tools",level:"Primary",difficulty:"Easy",q:"Which tool is used to drive a nail?",o:["Hammer","Spoon","Ruler","Brush"],a:0,e:"A hammer is commonly used to drive nails."},
+{subject:"Basic Technology",topic:"Safety",level:"Primary",difficulty:"Easy",q:"Why should tools be handled carefully?",o:["To prevent accidents","To damage them","To increase danger","To make them disappear"],a:0,e:"Careful handling reduces the risk of accidents."},
+{subject:"Basic Technology",topic:"Materials",level:"Secondary",difficulty:"Easy",q:"Which is a metal?",o:["Copper","Wood","Rubber","Paper"],a:0,e:"Copper is a metal."},
+
+/* PHE */
+
+{subject:"Physical & Health Education",topic:"Fitness",level:"Primary",difficulty:"Easy",q:"Which activity can improve cardiovascular fitness?",o:["Jogging","Sleeping","Sitting","Watching TV"],a:0,e:"Jogging is an aerobic activity."},
+{subject:"Physical & Health Education",topic:"Health",level:"Primary",difficulty:"Easy",q:"Which is important for good health?",o:["Balanced nutrition","Avoiding sleep","Constant inactivity","Never drinking water"],a:0,e:"Balanced nutrition supports health and growth."},
+{subject:"Physical & Health Education",topic:"Sports",level:"Secondary",difficulty:"Easy",q:"How many players from one team are normally on the field in football?",o:["7","9","11","15"],a:2,e:"A standard association football team has 11 players on the field."}
+
+];
+
+
+/* =========================================================
+   FLASHCARDS
+========================================================= */
+
+var FLASHCARDS=[
+
+{subject:"Mathematics",topic:"Algebra",front:"What is a variable?",back:"A symbol, often a letter, that represents an unknown or changeable value."},
+{subject:"Mathematics",topic:"Geometry",front:"What is a right angle?",back:"An angle measuring 90 degrees."},
+{subject:"English Language",topic:"Grammar",front:"What is a noun?",back:"A word that names a person, place, thing or idea."},
+{subject:"English Language",topic:"Grammar",front:"What is a verb?",back:"A word that expresses an action, occurrence or state."},
+{subject:"Basic Science",topic:"Living Things",front:"What is a cell?",back:"The basic structural and functional unit of living organisms."},
+{subject:"Physics",topic:"Forces",front:"What is force?",back:"A push or pull that can change an object's motion."},
+{subject:"Chemistry",topic:"Atoms",front:"What is an atom?",back:"The smallest unit of an element that retains the chemical identity of that element."},
+{subject:"Biology",topic:"Cells",front:"What is the nucleus?",back:"A cell structure containing genetic material and controlling many cell activities."},
+{subject:"Economics",topic:"Demand and Supply",front:"What is demand?",back:"The quantity of a good or service consumers are willing and able to buy."},
+{subject:"Government",topic:"Democracy",front:"What is democracy?",back:"A system of government in which people participate directly or through elected representatives."},
+{subject:"Geography",topic:"Climate",front:"What is climate?",back:"The long-term pattern of weather in a region."},
+{subject:"Computer Science",topic:"Hardware",front:"What is hardware?",back:"The physical components of a computer system."},
+{subject:"Computer Science",topic:"Software",front:"What is software?",back:"Programs and instructions that tell computer hardware what to do."},
+{subject:"Civic Education",topic:"Rights",front:"What is a right?",back:"A freedom or entitlement recognized and protected by law."},
+{subject:"Literature",topic:"Literary Devices",front:"What is a simile?",back:"A comparison between things using words such as like or as."},
+{subject:"Commerce",topic:"Trade",front:"What is trade?",back:"The buying and selling or exchange of goods and services."},
+{subject:"French",topic:"Greetings",front:"What does Merci mean?",back:"Thank you."}
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+var profile=null;
+
+var quizState=null;
+
+var flashState={
+cards:[],
+index:0,
+flipped:false
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+return document.getElementById(id);
+}
+
+
+function escapeHTML(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function shuffle(array){
+
+var copy=array.slice();
+
+for(var i=copy.length-1;i>0;i--){
+
+var j=Math.floor(Math.random()*(i+1));
+
+var temp=copy[i];
+copy[i]=copy[j];
+copy[j]=temp;
+
+}
+
+return copy;
+
+}
+
+
+function todayKey(){
+
+var d=new Date();
+
+return d.getFullYear()+"-"+
+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+
+String(d.getDate()).padStart(2,"0");
+
+}
+
+
+function yesterdayKey(){
+
+var d=new Date();
+
+d.setDate(d.getDate()-1);
+
+return d.getFullYear()+"-"+
+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+
+String(d.getDate()).padStart(2,"0");
+
+}
+
+
+function saveProfile(){
+
+try{
+
+localStorage.setItem(
+"studymate_profile",
+JSON.stringify(profile)
+);
+
+}catch(error){
+
+console.log("Could not save profile.");
+
+}
+
+}
+
+
+/* =========================================================
+   PROFILE REPAIR
+========================================================= */
+
+function loadProfile(){
+
+try{
+
+var saved=localStorage.getItem("studymate_profile");
+
+if(!saved){
+
+profile=null;
+return;
+
+}
+
+profile=JSON.parse(saved);
+
+if(!profile || typeof profile!=="object"){
+
+profile=null;
+return;
+
+}
+
+if(!profile.name) profile.name="Student";
+
+if(!profile.level) profile.level="Secondary";
+
+if(!profile.className) profile.className="SS 1";
+
+if(!profile.country) profile.country="Nigeria";
+
+if(!Array.isArray(profile.subjects) ||
+profile.subjects.length===0){
+
+profile.subjects=["Mathematics"];
+
+}
+
+if(!Array.isArray(profile.topics)){
+profile.topics=[];
+}
+
+if(!profile.stats ||
+typeof profile.stats!=="object"){
+
+profile.stats={};
+
+}
+
+if(typeof profile.stats.quizzes!=="number")
+profile.stats.quizzes=0;
+
+if(typeof profile.stats.answered!=="number")
+profile.stats.answered=0;
+
+if(typeof profile.stats.correct!=="number")
+profile.stats.correct=0;
+
+if(!profile.stats.subject ||
+typeof profile.stats.subject!=="object"){
+
+profile.stats.subject={};
+
+}
+
+if(!profile.stats.topic ||
+typeof profile.stats.topic!=="object"){
+
+profile.stats.topic={};
+
+}
+
+
+/* NEW UPGRADE DATA */
+
+if(typeof profile.stats.xp!=="number")
+profile.stats.xp=0;
+
+if(typeof profile.stats.streak!=="number")
+profile.stats.streak=0;
+
+if(!profile.stats.lastStudyDate)
+profile.stats.lastStudyDate="";
+
+if(!profile.stats.dailyGoal)
+profile.stats.dailyGoal=10;
+
+if(!profile.stats.todayAnswered)
+profile.stats.todayAnswered=0;
+
+if(profile.stats.todayDate!==todayKey()){
+
+profile.stats.todayAnswered=0;
+profile.stats.todayDate=todayKey();
+
+}
+
+saveProfile();
+
+}catch(error){
+
+console.log("Profile data was corrupted.");
+
+profile=null;
+
+try{
+localStorage.removeItem("studymate_profile");
+}catch(e){}
+
+}
+
+}
+
+
+/* =========================================================
+   XP + STREAK
+========================================================= */
+
+function addStudyProgress(correct){
+
+if(!profile || !profile.stats){
+return;
+}
+
+var today=todayKey();
+
+if(profile.stats.todayDate!==today){
+
+profile.stats.todayDate=today;
+profile.stats.todayAnswered=0;
+
+}
+
+profile.stats.todayAnswered++;
+
+profile.stats.xp+=correct ? 10 : 5;
+
+var last=profile.stats.lastStudyDate;
+
+if(last!==today){
+
+if(last===yesterdayKey()){
+
+profile.stats.streak++;
+
+}else{
+
+profile.stats.streak=1;
+
+}
+
+profile.stats.lastStudyDate=today;
+
+}
+
+saveProfile();
+
+}
+
+
+function getLevel(){
+
+var xp=profile.stats.xp || 0;
+
+return Math.floor(xp/100)+1;
+
+}
+
+
+function getLevelXP(){
+
+var xp=profile.stats.xp || 0;
+
+return xp%100;
+
+}
+
+
+/* =========================================================
+   ONBOARDING
+========================================================= */
+
+function updateClasses(){
+
+var level=$("levelInput").value;
+
+var classes;
+
+if(level==="Primary"){
+
+classes=[
+"Primary 1",
+"Primary 2",
+"Primary 3",
+"Primary 4",
+"Primary 5",
+"Primary 6"
+];
+
+}else{
+
+classes=[
+"JSS 1",
+"JSS 2",
+"JSS 3",
+"SS 1",
+"SS 2",
+"SS 3"
+];
+
+}
+
+$("classInput").innerHTML="";
+
+for(var i=0;i<classes.length;i++){
+
+var option=document.createElement("option");
+
+option.value=classes[i];
+option.textContent=classes[i];
+
+$("classInput").appendChild(option);
+
+}
+
+}
+
+
+function renderSubjectChips(){
+
+var html="";
+
+for(var subject in SUBJECTS){
+
+html+=
+'<button type="button" class="chip" data-subject="'+
+escapeHTML(subject)+
+'">'+
+SUBJECTS[subject].icon+
+" "+
+escapeHTML(subject)+
+"</button>";
+
+}
+
+$("subjectChips").innerHTML=html;
+
+var buttons=$("subjectChips").querySelectorAll(".chip");
+
+for(var i=0;i<buttons.length;i++){
+
+buttons[i].addEventListener(
+"click",
+function(){
+
+this.classList.toggle("selected");
+
+renderTopicChips();
+
+}
+);
+
+}
+
+}
+
+
+function renderTopicChips(){
+
+var selectedButtons=
+$("subjectChips").querySelectorAll(".selected");
+
+var subjects=[];
+
+for(var i=0;i<selectedButtons.length;i++){
+
+subjects.push(
+selectedButtons[i].getAttribute("data-subject")
+);
+
+}
+
+if(subjects.length===0){
+
+$("topicChips").innerHTML=
+'<span style="color:#8792ad;font-size:12px">Select subjects first.</span>';
+
+return;
+
+}
+
+var topics=[];
+
+for(var s=0;s<subjects.length;s++){
+
+var subject=subjects[s];
+
+if(!SUBJECTS[subject]) continue;
+
+for(var t=0;t<SUBJECTS[subject].topics.length;t++){
+
+var topic=SUBJECTS[subject].topics[t];
+
+var key=subject+"|||"+topic;
+
+if(topics.indexOf(key)===-1){
+topics.push(key);
+}
+
+}
+
+}
+
+var html="";
+
+for(var x=0;x<topics.length;x++){
+
+var parts=topics[x].split("|||");
+
+html+=
+'<button type="button" class="chip" data-topic="'+
+escapeHTML(topics[x])+
+'">'+
+escapeHTML(parts[1])+
+"</button>";
+
+}
+
+$("topicChips").innerHTML=html;
+
+var topicButtons=
+$("topicChips").querySelectorAll(".chip");
+
+for(var j=0;j<topicButtons.length;j++){
+
+topicButtons[j].addEventListener(
+"click",
+function(){
+this.classList.toggle("selected");
+}
+);
+
+}
+
+}
+
+
+function startProfile(){
+
+var name=$("nameInput").value.trim();
+
+if(!name){
+
+alert("Please enter a nickname.");
+return;
+
+}
+
+var subjectButtons=
+$("subjectChips").querySelectorAll(".selected");
+
+var subjects=[];
+
+for(var i=0;i<subjectButtons.length;i++){
+
+subjects.push(
+subjectButtons[i].getAttribute("data-subject")
+);
+
+}
+
+if(subjects.length===0){
+
+alert("Please select at least one subject.");
+return;
+
+}
+
+var topicButtons=
+$("topicChips").querySelectorAll(".selected");
+
+var topics=[];
+
+for(var j=0;j<topicButtons.length;j++){
+
+topics.push(
+topicButtons[j].getAttribute("data-topic")
+);
+
+}
+
+profile={
+
+name:name,
+
+level:$("levelInput").value,
+
+className:$("classInput").value,
+
+country:$("countryInput").value,
+
+subjects:subjects,
+
+topics:topics,
+
+stats:{
+quizzes:0,
+answered:0,
+correct:0,
+subject:{},
+topic:{},
+xp:0,
+streak:0,
+lastStudyDate:"",
+dailyGoal:10,
+todayAnswered:0,
+todayDate:todayKey()
+}
+
+};
+
+saveProfile();
+
+showApp();
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+function showApp(){
+
+if(!profile){
+
+$("onboarding").classList.remove("hidden");
+$("app").classList.add("hidden");
+
+return;
+
+}
+
+if(!profile.stats){
+profile.stats={};
+}
+
+if(!profile.stats.subject){
+profile.stats.subject={};
+}
+
+if(!profile.stats.topic){
+profile.stats.topic={};
+}
+
+if(typeof profile.stats.xp!=="number")
+profile.stats.xp=0;
+
+if(typeof profile.stats.streak!=="number")
+profile.stats.streak=0;
+
+if(typeof profile.stats.quizzes!=="number")
+profile.stats.quizzes=0;
+
+if(typeof profile.stats.answered!=="number")
+profile.stats.answered=0;
+
+if(typeof profile.stats.correct!=="number")
+profile.stats.correct=0;
+
+if(typeof profile.stats.dailyGoal!=="number")
+profile.stats.dailyGoal=10;
+
+if(typeof profile.stats.todayAnswered!=="number")
+profile.stats.todayAnswered=0;
+
+if(profile.stats.todayDate!==todayKey()){
+
+profile.stats.todayDate=todayKey();
+profile.stats.todayAnswered=0;
+
+}
+
+$("onboarding").classList.add("hidden");
+$("app").classList.remove("hidden");
+
+$("avatar").textContent=
+profile.name.charAt(0).toUpperCase();
+
+saveProfile();
+
+renderPage("home");
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function renderPage(page){
+
+if(!profile){
+
+$("onboarding").classList.remove("hidden");
+$("app").classList.add("hidden");
+return;
+
+}
+
+var buttons=document.querySelectorAll(".nav button");
+
+for(var i=0;i<buttons.length;i++){
+
+buttons[i].classList.toggle(
+"active",
+buttons[i].getAttribute("data-page")===page
+);
+
+}
+
+if(page==="home") renderHome();
+if(page==="ask") renderAsk();
+if(page==="quiz") renderQuizSetup();
+if(page==="flash") renderFlashcards();
+if(page==="profile") renderProfile();
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function renderHome(){
+
+if(!profile || !profile.stats){
+showApp();
+return;
+}
+
+var accuracy=0;
+
+if(profile.stats.answered>0){
+
+accuracy=Math.round(
+profile.stats.correct/
+profile.stats.answered*
+100
+);
+
+}
+
+var goal=profile.stats.dailyGoal || 10;
+
+var today=profile.stats.todayAnswered || 0;
+
+var goalPercent=Math.min(
+100,
+Math.round(today/goal*100)
+);
+
+var subjectsHTML="";
+
+for(var i=0;i<profile.subjects.length;i++){
+
+var s=profile.subjects[i];
+
+var data=profile.stats.subject[s] || {
+answered:0,
+correct:0
+};
+
+var subjectAccuracy=
+data.answered>0
+?
+Math.round(data.correct/data.answered*100)
+:
+0;
+
+subjectsHTML+=
+'<div class="subject-card">'+
+
+'<div class="subject-icon">'+
+(SUBJECTS[s]?SUBJECTS[s].icon:"📚")+
+"</div>"+
+
+"<h3>"+
+escapeHTML(s)+
+"</h3>"+
+
+"<small>"+
+data.answered+
+" questions • "+
+subjectAccuracy+
+"% accuracy"+
+"</small>"+
+
+"</div>";
+
+}
+
+
+$("main").innerHTML=
+
+'<section class="greeting">'+
+
+"<p>Welcome back 👋</p>"+
+
+"<h1>"+
+escapeHTML(profile.name)+
+"</h1>"+
+
+"<p>"+
+escapeHTML(profile.className)+
+" • "+
+escapeHTML(profile.country)+
+"</p>"+
+
+'<span class="level-badge">⭐ Level '+
+getLevel()+
+" • "+
+(profile.stats.xp||0)+
+" XP</span>"+
+
+"</section>"+
+
+'<section class="screen" style="padding-top:0">'+
+
+'<div class="streak-box">'+
+
+"<div>"+
+"<div style=\"color:#aeb8ce;font-size:12px\">Study streak</div>"+
+'<div class="streak-number">🔥 '+
+(profile.stats.streak||0)+
+"</div>"+
+"</div>"+
+
+"<div style=\"text-align:right\">"+
+"<div style=\"color:#aeb8ce;font-size:12px\">Next level</div>"+
+'<div style="font-weight:bold">'+
+getLevelXP()+
+"/100 XP</div>"+
+'<div class="xp-bar" style="width:110px">'+
+'<div style="width:'+
+getLevelXP()+
+'%"></div>'+
+"</div>"+
+"</div>"+
+
+"</div>"+
+
+'<div class="card">'+
+
+'<div class="goal-item">'+
+
+'<div class="goal-circle">'+
+goalPercent+
+"%"+
+"</div>"+
+
+"<div style=\"flex:1\">"+
+
+"<h3 style=\"margin-bottom:4px\">🎯 Daily Goal</h3>"+
+
+"<p style=\"margin-bottom:0\">"+
+today+
+" of "+
+goal+
+" questions completed today.</p>"+
+
+'<div class="progress" style="margin:9px 0 0">'+
+'<div style="width:'+
+goalPercent+
+'%"></div>'+
+"</div>"+
+
+"</div>"+
+
+"</div>"+
+
+"</div>"+
+
+'<div class="grid">'+
+
+'<div class="stat">'+
+"<span>Questions</span>"+
+"<b>"+profile.stats.answered+"</b>"+
+"</div>"+
+
+'<div class="stat">'+
+"<span>Accuracy</span>"+
+"<b>"+accuracy+"%</b>"+
+"</div>"+
+
+'<div class="stat">'+
+"<span>Quizzes</span>"+
+"<b>"+profile.stats.quizzes+"</b>"+
+"</div>"+
+
+'<div class="stat">'+
+"<span>XP</span>"+
+"<b>"+(profile.stats.xp||0)+"</b>"+
+"</div>"+
+
+"</div>"+
+
+'<div class="section-title">'+
+"<h2>Start Learning</h2>"+
+"</div>"+
+
+'<div class="card">'+
+"<h3>📝 Take a Quiz</h3>"+
+"<p>Practice questions from your selected subjects.</p>"+
+'<button class="btn" id="homeQuizBtn">Start Quiz 🚀</button>'+
+"</div>"+
+
+'<div class="card">'+
+"<h3>💬 Ask StudyMate</h3>"+
+"<p>Search the offline educational knowledge bank.</p>"+
+'<button class="btn secondary" id="homeAskBtn">Ask a Question</button>'+
+"</div>"+
+
+'<div class="section-title">'+
+"<h2>Your Subjects</h2>"+
+"</div>"+
+
+'<div class="subject-grid">'+
+subjectsHTML+
+"</div>"+
+
+'<div class="section-title">'+
+"<h2>Study Tip</h2>"+
+"</div>"+
+
+'<div class="notice">'+
+"💡 Try answering questions yourself before checking the explanation. "+
+"Every correct answer gives you more XP."+
+"</div>"+
+
+"</section>";
+
+
+$("homeQuizBtn").addEventListener(
+"click",
+function(){renderPage("quiz");}
+);
+
+$("homeAskBtn").addEventListener(
+"click",
+function(){renderPage("ask");}
+);
+
+}
+
+
+/* =========================================================
+   ASK
+========================================================= */
+
+function normalize(text){
+
+return String(text)
+.toLowerCase()
+.replace(/[^\w\s]/g," ")
+.replace(/\s+/g," ")
+.trim();
+
+}
+
+
+function renderAsk(){
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+"<h2>💬 Ask StudyMate</h2>"+
+
+"<p>Ask about something inside the offline study bank.</p>"+
+
+'<div class="card" style="margin-top:15px">'+
+
+'<input id="askInput" placeholder="e.g. What is photosynthesis?">'+
+
+'<button class="btn" id="askBtn">Find Answer 🔎</button>'+
+
+"</div>"+
+
+'<div id="askResult"></div>'+
+
+'<div class="section-title"><h3>Try These</h3></div>'+
+
+'<div class="chips">'+
+
+'<button class="chip askExample">What is force?</button>'+
+'<button class="chip askExample">What is a cell?</button>'+
+'<button class="chip askExample">What is democracy?</button>'+
+'<button class="chip askExample">What is demand?</button>'+
+'<button class="chip askExample">What is a simile?</button>'+
+'<button class="chip askExample">What is an atom?</button>'+
+
+"</div>"+
+
+"</section>";
+
+
+$("askBtn").addEventListener("click",answerQuestion);
+
+$("askInput").addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+answerQuestion();
+}
+
+}
+);
+
+var examples=document.querySelectorAll(".askExample");
+
+for(var i=0;i<examples.length;i++){
+
+examples[i].addEventListener(
+"click",
+function(){
+
+$("askInput").value=this.textContent;
+
+answerQuestion();
+
+}
+);
+
+}
+
+}
+
+
+function answerQuestion(){
+
+var input=normalize($("askInput").value);
+
+if(!input){
+
+$("askResult").innerHTML=
+'<div class="notice">Type a question first.</div>';
+
+return;
+
+}
+
+var best=null;
+var bestScore=0;
+
+var words=input.split(" ");
+
+for(var i=0;i<FLASHCARDS.length;i++){
+
+var card=FLASHCARDS[i];
+
+var score=0;
+
+for(var w=0;w<words.length;w++){
+
+var word=words[w];
+
+if(word.length<3) continue;
+
+if(normalize(card.front).indexOf(word)!==-1)
+score+=4;
+
+if(normalize(card.back).indexOf(word)!==-1)
+score++;
+
+if(normalize(card.subject).indexOf(word)!==-1)
+score++;
+
+if(normalize(card.topic).indexOf(word)!==-1)
+score++;
+
+}
+
+if(score>bestScore){
+
+bestScore=score;
+
+best={
+subject:card.subject,
+topic:card.topic,
+front:card.front,
+back:card.back
+};
+
+}
+
+}
+
+
+for(var qIndex=0;qIndex<QUESTIONS.length;qIndex++){
+
+var q=QUESTIONS[qIndex];
+
+var qScore=0;
+
+for(var z=0;z<words.length;z++){
+
+var qWord=words[z];
+
+if(qWord.length<3) continue;
+
+if(normalize(q.q).indexOf(qWord)!==-1)
+qScore+=4;
+
+if(normalize(q.e).indexOf(qWord)!==-1)
+qScore++;
+
+if(normalize(q.subject).indexOf(qWord)!==-1)
+qScore++;
+
+if(normalize(q.topic).indexOf(qWord)!==-1)
+qScore++;
+
+}
+
+if(qScore>bestScore){
+
+bestScore=qScore;
+
+best={
+subject:q.subject,
+topic:q.topic,
+front:q.q,
+back:q.e
+};
+
+}
+
+}
+
+
+if(!best || bestScore<2){
+
+$("askResult").innerHTML=
+
+'<div class="card">'+
+"<h3>🤔 I don't have a verified answer offline.</h3>"+
+"<p>I don't want to guess and teach you something wrong. Try another question from the study bank.</p>"+
+"</div>";
+
+return;
+
+}
+
+
+$("askResult").innerHTML=
+
+'<div class="card">'+
+
+'<div class="question-meta">'+
+escapeHTML(best.subject)+
+" • "+
+escapeHTML(best.topic)+
+"</div>"+
+
+"<h3>"+
+escapeHTML(best.front)+
+"</h3>"+
+
+'<div class="answer-box">'+
+"<b>Answer</b>"+
+"<p>"+
+escapeHTML(best.back)+
+"</p>"+
+"</div>"+
+
+"</div>";
+
+}
+
+
+/* =========================================================
+   QUIZ SETUP
+========================================================= */
+
+function renderQuizSetup(){
+
+var options="";
+
+for(var i=0;i<profile.subjects.length;i++){
+
+options+=
+'<option value="'+
+escapeHTML(profile.subjects[i])+
+'">'+
+escapeHTML(profile.subjects[i])+
+"</option>";
+
+}
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+"<h2>📝 Quiz</h2>"+
+
+"<p>Choose your practice settings.</p>"+
+
+'<div class="card" style="margin-top:15px">'+
+
+'<div class="input-group">'+
+"<label>Subject</label>"+
+'<select id="quizSubject">'+
+'<option value="ALL">All selected subjects</option>'+
+options+
+"</select>"+
+"</div>"+
+
+'<div class="input-group">'+
+"<label>Topic</label>"+
+'<select id="quizTopic">'+
+'<option value="ALL">All topics</option>'+
+"</select>"+
+"</div>"+
+
+'<div class="input-group">'+
+"<label>Difficulty</label>"+
+'<select id="quizDifficulty">'+
+'<option value="ALL">Any difficulty</option>'+
+'<option value="Easy">Easy</option>'+
+'<option value="Medium">Medium</option>'+
+"</select>"+
+"</div>"+
+
+'<div class="input-group">'+
+"<label>Number of questions</label>"+
+'<select id="quizCount">'+
+'<option value="5">5</option>'+
+'<option value="10" selected>10</option>'+
+'<option value="15">15</option>'+
+'<option value="20">20</option>'+
+"</select>"+
+"</div>"+
+
+'<button class="btn" id="beginQuiz">Begin Quiz 🚀</button>'+
+
+"</div>"+
+
+'<div class="notice">'+
+"Questions are shuffled automatically. Correct answers also give XP."+
+"</div>"+
+
+"</section>";
+
+
+updateQuizTopics();
+
+$("quizSubject").addEventListener(
+"change",
+updateQuizTopics
+);
+
+$("beginQuiz").addEventListener(
+"click",
+beginQuiz
+);
+
+}
+
+
+/* =========================================================
+   QUIZ TOPICS
+========================================================= */
+
+function updateQuizTopics(){
+
+var subject=$("quizSubject").value;
+
+var topics=[];
+
+if(subject==="ALL"){
+
+for(var i=0;i<profile.subjects.length;i++){
+
+var s=profile.subjects[i];
+
+if(!SUBJECTS[s]) continue;
+
+for(var j=0;j<SUBJECTS[s].topics.length;j++){
+
+var t=SUBJECTS[s].topics[j];
+
+if(topics.indexOf(t)===-1){
+topics.push(t);
+}
+
+}
+
+}
+
+}else{
+
+if(SUBJECTS[subject]){
+topics=SUBJECTS[subject].topics.slice();
+}
+
+}
+
+var html='<option value="ALL">All topics</option>';
+
+for(var x=0;x<topics.length;x++){
+
+html+=
+'<option value="'+
+escapeHTML(topics[x])+
+'">'+
+escapeHTML(topics[x])+
+"</option>";
+
+}
+
+$("quizTopic").innerHTML=html;
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+function getQuizPool(){
+
+var subject=$("quizSubject").value;
+var topic=$("quizTopic").value;
+var difficulty=$("quizDifficulty").value;
+
+var pool=QUESTIONS.filter(
+function(q){
+
+var subjectOK=
+subject==="ALL"
+?
+profile.subjects.indexOf(q.subject)!==-1
+:
+q.subject===subject;
+
+var levelOK=q.level===profile.level;
+
+var topicOK=
+topic==="ALL" ||
+q.topic===topic;
+
+var difficultyOK=
+difficulty==="ALL" ||
+q.difficulty===difficulty;
+
+return subjectOK &&
+levelOK &&
+topicOK &&
+difficultyOK;
+
+}
+);
+
+
+/* If there are no questions for the chosen difficulty,
+   retry without difficulty restriction. */
+
+if(pool.length===0 && difficulty!=="ALL"){
+
+pool=QUESTIONS.filter(
+function(q){
+
+var subjectOK=
+subject==="ALL"
+?
+profile.subjects.indexOf(q.subject)!==-1
+:
+q.subject===subject;
+
+var levelOK=q.level===profile.level;
+
+var topicOK=
+topic==="ALL" ||
+q.topic===topic;
+
+return subjectOK &&
+levelOK &&
+topicOK;
+
+}
+);
+
+}
+
+
+/* Final fallback */
+
+if(pool.length===0){
+
+pool=QUESTIONS.filter(
+function(q){
+
+return profile.subjects.indexOf(q.subject)!==-1 &&
+q.level===profile.level;
+
+}
+);
+
+}
+
+return shuffle(pool);
+
+}
+
+
+function beginQuiz(){
+
+var pool=getQuizPool();
+
+if(pool.length===0){
+
+alert(
+"There are no questions matching your selection yet."
+);
+
+return;
+
+}
+
+var count=parseInt(
+$("quizCount").value,
+10
+);
+
+if(count>pool.length){
+count=pool.length;
+}
+
+quizState={
+questions:pool.slice(0,count),
+index:0,
+score:0,
+answered:false
+};
+
+renderQuizQuestion();
+
+}
+
+
+function renderQuizQuestion(){
+
+if(!quizState ||
+!quizState.questions ||
+quizState.index>=quizState.questions.length){
+
+return;
+
+}
+
+var q=quizState.questions[quizState.index];
+
+var total=quizState.questions.length;
+
+var percent=Math.round(
+quizState.index/total*100
+);
+
+var optionsHTML="";
+
+for(var i=0;i<q.o.length;i++){
+
+optionsHTML+=
+'<button class="option" data-answer="'+
+i+
+'">'+
+String.fromCharCode(65+i)+
+". "+
+escapeHTML(q.o[i])+
+"</button>";
+
+}
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+'<button class="back" id="quitQuiz">← Exit Quiz</button>'+
+
+'<div class="question-meta">'+
+"Question "+
+(quizState.index+1)+
+" of "+
+total+
+" • "+
+escapeHTML(q.subject)+
+" • "+
+escapeHTML(q.topic)+
+" • "+
+escapeHTML(q.difficulty)+
+"</div>"+
+
+'<div class="progress">'+
+'<div style="width:'+percent+'%"></div>'+
+"</div>"+
+
+'<div class="card">'+
+
+"<h2>"+
+escapeHTML(q.q)+
+"</h2>"+
+
+'<div id="options">'+
+optionsHTML+
+"</div>"+
+
+'<div id="answerBox"></div>'+
+
+"</div>"+
+
+"</section>";
+
+$("quitQuiz").addEventListener(
+"click",
+function(){
+
+quizState=null;
+renderPage("quiz");
+
+}
+);
+
+var optionButtons=
+document.querySelectorAll(".option");
+
+for(var j=0;j<optionButtons.length;j++){
+
+optionButtons[j].addEventListener(
+"click",
+function(){
+
+chooseAnswer(
+parseInt(
+this.getAttribute("data-answer"),
+10
+)
+);
+
+}
+);
+
+}
+
+}
+
+
+function chooseAnswer(choice){
+
+if(!quizState || quizState.answered){
+return;
+}
+
+quizState.answered=true;
+
+var q=quizState.questions[quizState.index];
+
+var buttons=document.querySelectorAll(".option");
+
+for(var i=0;i<buttons.length;i++){
+
+buttons[i].disabled=true;
+
+if(i===q.a){
+buttons[i].classList.add("correct");
+}
+
+if(i===choice && choice!==q.a){
+buttons[i].classList.add("wrong");
+}
+
+}
+
+var correct=choice===q.a;
+
+if(correct){
+quizState.score++;
+}
+
+profile.stats.answered++;
+
+if(correct){
+profile.stats.correct++;
+}
+
+
+/* SUBJECT */
+
+if(!profile.stats.subject[q.subject]){
+
+profile.stats.subject[q.subject]={
+answered:0,
+correct:0
+};
+
+}
+
+profile.stats.subject[q.subject].answered++;
+
+if(correct){
+profile.stats.subject[q.subject].correct++;
+}
+
+
+/* TOPIC */
+
+if(!profile.stats.topic[q.topic]){
+
+profile.stats.topic[q.topic]={
+answered:0,
+correct:0
+};
+
+}
+
+profile.stats.topic[q.topic].answered++;
+
+if(correct){
+profile.stats.topic[q.topic].correct++;
+}
+
+
+/* NEW XP + DAILY + STREAK */
+
+addStudyProgress(correct);
+
+saveProfile();
+
+
+$("answerBox").innerHTML=
+
+'<div class="answer-box">'+
+
+"<b>"+
+(correct ? "✅ Correct!" : "❌ Not quite.")+
+"</b>"+
+
+"<p>"+
+escapeHTML(q.e)+
+"</p>"+
+
+'<p style="font-size:12px;color:#8f9bb8">'+
+(correct ? "+10 XP" : "+5 XP")+
+"</p>"+
+
+'<button class="btn" id="nextQuestion">'+
+(
+quizState.index+1===quizState.questions.length
+?
+"See Results 🎉"
+:
+"Next Question →"
+)+
+"</button>"+
+
+"</div>";
+
+$("nextQuestion").addEventListener(
+"click",
+nextQuestion
+);
+
+}
+
+
+function nextQuestion(){
+
+if(!quizState){
+return;
+}
+
+quizState.index++;
+
+if(
+quizState.index>=
+quizState.questions.length
+){
+
+finishQuiz();
+
+return;
+
+}
+
+quizState.answered=false;
+
+renderQuizQuestion();
+
+}
+
+
+function finishQuiz(){
+
+if(!quizState){
+return;
+}
+
+profile.stats.quizzes++;
+
+saveProfile();
+
+var total=quizState.questions.length;
+
+var score=quizState.score;
+
+var percentage=Math.round(
+score/total*100
+);
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+'<div class="card" style="text-align:center">'+
+
+'<div style="font-size:50px">🎉</div>'+
+
+"<h2>Quiz Complete!</h2>"+
+
+'<div class="score-big">'+
+score+
+"/"+
+total+
+"</div>"+
+
+"<h3>"+
+percentage+
+"%"+
+"</h3>"+
+
+"<p>"+
+(
+percentage>=80
+?
+"Excellent work! 🔥"
+:
+percentage>=60
+?
+"Good job! Keep practising. 💪"
+:
+"Keep learning and try again. 📚"
+)+
+"</p>"+
+
+'<div class="notice">'+
+"⭐ Total XP: "+
+profile.stats.xp+
+"<br>🔥 Study streak: "+
+profile.stats.streak+
+" day"+
+(profile.stats.streak===1?"":"s")+
+"</div>"+
+
+'<button class="btn" id="againBtn">Try Another Quiz</button>'+
+
+'<button class="btn secondary" id="homeBtn">Back Home</button>'+
+
+"</div>"+
+
+"</section>";
+
+$("againBtn").addEventListener(
+"click",
+function(){
+renderPage("quiz");
+}
+);
+
+$("homeBtn").addEventListener(
+"click",
+function(){
+renderPage("home");
+}
+);
+
+quizState=null;
+
+}
+
+
+/* =========================================================
+   FLASHCARDS
+========================================================= */
+
+function renderFlashcards(){
+
+if(
+flashState.cards.length===0 ||
+flashState.index>=flashState.cards.length
+){
+
+flashState.cards=
+shuffle(
+FLASHCARDS.filter(
+function(card){
+
+return profile.subjects.indexOf(
+card.subject
+)!==-1;
+
+}
+)
+);
+
+if(flashState.cards.length===0){
+flashState.cards=shuffle(FLASHCARDS);
+}
+
+flashState.index=0;
+flashState.flipped=false;
+
+}
+
+var card=
+flashState.cards[flashState.index];
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+"<h2>📚 Flashcards</h2>"+
+
+"<p>Tap the card to reveal the answer.</p>"+
+
+'<div class="card" style="margin-top:15px">'+
+
+'<div class="question-meta">'+
+escapeHTML(card.subject)+
+" • "+
+escapeHTML(card.topic)+
+" • "+
+(flashState.index+1)+
+"/"+
+flashState.cards.length+
+"</div>"+
+
+'<button class="flashcard" id="flashCard">'+
+
+escapeHTML(
+flashState.flipped
+?
+card.back
+:
+card.front
+)+
+
+"</button>"+
+
+'<button class="btn secondary" id="flipBtn">'+
+(
+flashState.flipped
+?
+"Show Question"
+:
+"Show Answer"
+)+
+"</button>"+
+
+'<div class="small-row">'+
+
+'<button class="small-btn" id="prevCard">← Previous</button>'+
+
+'<button class="small-btn" id="nextCard">Next →</button>'+
+
+"</div>"+
+
+"</div>"+
+
+"</section>";
+
+$("flashCard").addEventListener(
+"click",
+flipCard
+);
+
+$("flipBtn").addEventListener(
+"click",
+flipCard
+);
+
+$("nextCard").addEventListener(
+"click",
+function(){
+
+flashState.index++;
+flashState.flipped=false;
+
+if(
+flashState.index>=
+flashState.cards.length
+){
+
+flashState.cards=shuffle(
+flashState.cards
+);
+
+flashState.index=0;
+
+}
+
+renderFlashcards();
+
+}
+);
+
+$("prevCard").addEventListener(
+"click",
+function(){
+
+flashState.index--;
+flashState.flipped=false;
+
+if(flashState.index<0){
+
+flashState.index=
+flashState.cards.length-1;
+
+}
+
+renderFlashcards();
+
+}
+);
+
+}
+
+
+function flipCard(){
+
+flashState.flipped=
+!flashState.flipped;
+
+renderFlashcards();
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function renderProfile(){
+
+if(!profile || !profile.stats){
+showApp();
+return;
+}
+
+var accuracy=0;
+
+if(profile.stats.answered>0){
+
+accuracy=Math.round(
+profile.stats.correct/
+profile.stats.answered*
+100
+);
+
+}
+
+var subjectHTML="";
+
+for(var i=0;i<profile.subjects.length;i++){
+
+var s=profile.subjects[i];
+
+subjectHTML+=
+'<span class="chip selected">'+
+(SUBJECTS[s]?SUBJECTS[s].icon:"📚")+
+" "+
+escapeHTML(s)+
+"</span>";
+
+}
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+"<h2>👤 Profile</h2>"+
+
+"<p>Your StudyMate profile.</p>"+
+
+'<div class="card" style="margin-top:15px">'+
+
+'<div style="display:flex;align-items:center;gap:12px">'+
+
+'<div class="avatar">'+
+escapeHTML(
+profile.name.charAt(0).toUpperCase()
+)+
+"</div>"+
+
+"<div>"+
+"<h3>"+
+escapeHTML(profile.name)+
+"</h3>"+
+"<p>"+
+escapeHTML(profile.className)+
+" • "+
+escapeHTML(profile.level)+
+"</p>"+
+"</div>"+
+
+"</div>"+
+
+"<hr>"+
+
+"<table>"+
+
+"<tr><td>Country</td><td>"+
+escapeHTML(profile.country)+
+"</td></tr>"+
+
+"<tr><td>Level</td><td>"+
+getLevel()+
+"</td></tr>"+
+
+"<tr><td>XP</td><td>"+
+profile.stats.xp+
+"</td></tr>"+
+
+"<tr><td>Questions</td><td>"+
+profile.stats.answered+
+"</td></tr>"+
+
+"<tr><td>Correct</td><td>"+
+profile.stats.correct+
+"</td></tr>"+
+
+"<tr><td>Accuracy</td><td>"+
+accuracy+
+"%</td></tr>"+
+
+"<tr><td>Quizzes</td><td>"+
+profile.stats.quizzes+
+"</td></tr>"+
+
+"<tr><td>Streak</td><td>🔥 "+
+profile.stats.streak+
+"</td></tr>"+
+
+"</table>"+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>📚 My Subjects</h3>"+
+
+'<div class="chips" style="margin-top:12px">'+
+subjectHTML+
+"</div>"+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>✏️ Profile Settings</h3>"+
+
+"<p>Change your nickname or daily study goal.</p>"+
+
+'<button class="btn secondary" id="editProfileBtn">Edit Profile</button>'+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>🧮 Calculator</h3>"+
+
+"<p>Offline calculator.</p>"+
+
+'<button class="btn secondary" id="calcBtn">Open Calculator</button>'+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>📊 Progress</h3>"+
+
+"<p>See your performance by subject.</p>"+
+
+'<button class="btn secondary" id="progressBtn">View Progress</button>'+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>⚠️ Reset</h3>"+
+
+"<p>This removes your profile and saved progress.</p>"+
+
+'<button class="btn danger" id="resetBtn">Reset StudyMate</button>'+
+
+"</div>"+
+
+"</section>";
+
+$("editProfileBtn").addEventListener(
+"click",
+editProfile
+);
+
+$("calcBtn").addEventListener(
+"click",
+renderCalculator
+);
+
+$("progressBtn").addEventListener(
+"click",
+renderProgress
+);
+
+$("resetBtn").addEventListener(
+"click",
+function(){
+
+if(confirm(
+"Reset your StudyMate profile and progress?"
+)){
+
+try{
+localStorage.removeItem("studymate_profile");
+}catch(error){}
+
+location.reload();
+
+}
+
+}
+);
+
+}
+
+
+/* =========================================================
+   EDIT PROFILE
+========================================================= */
+
+function editProfile(){
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+'<button class="back" id="editBack">← Back</button>'+
+
+"<h2>✏️ Edit Profile</h2>"+
+
+'<div class="card">'+
+
+'<div class="input-group">'+
+"<label>Nickname</label>"+
+'<input id="editName" value="'+
+escapeHTML(profile.name)+
+'">'+
+"</div>"+
+
+'<div class="input-group">'+
+"<label>Daily Question Goal</label>"+
+'<select id="editGoal">'+
+
+'<option value="5">5 questions</option>'+
+'<option value="10">10 questions</option>'+
+'<option value="15">15 questions</option>'+
+'<option value="20">20 questions</option>'+
+'<option value="30">30 questions</option>'+
+
+"</select>"+
+"</div>"+
+
+'<button class="btn" id="saveEdit">Save Changes</button>'+
+
+"</div>"+
+
+"</section>";
+
+$("editGoal").value=
+String(profile.stats.dailyGoal || 10);
+
+$("editBack").addEventListener(
+"click",
+function(){
+renderPage("profile");
+}
+);
+
+$("saveEdit").addEventListener(
+"click",
+function(){
+
+var newName=
+$("editName").value.trim();
+
+if(!newName){
+
+alert("Please enter a nickname.");
+return;
+
+}
+
+profile.name=newName;
+
+profile.stats.dailyGoal=
+parseInt(
+$("editGoal").value,
+10
+);
+
+saveProfile();
+
+$("avatar").textContent=
+profile.name.charAt(0).toUpperCase();
+
+alert("Profile updated successfully! ✅");
+
+renderPage("profile");
+
+}
+);
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function renderProgress(){
+
+var rows="";
+
+for(var i=0;i<profile.subjects.length;i++){
+
+var subject=profile.subjects[i];
+
+var data=
+profile.stats.subject[subject] ||
+{
+answered:0,
+correct:0
+};
+
+var accuracy=
+data.answered>0
+?
+Math.round(
+data.correct/
+data.answered*
+100
+)
+:
+0;
+
+rows+=
+"<tr>"+
+"<td>"+
+escapeHTML(subject)+
+"</td>"+
+"<td>"+
+data.answered+
+" / "+
+accuracy+
+"%"+
+"</td>"+
+"</tr>";
+
+}
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+'<button class="back" id="progressBack">← Back</button>'+
+
+"<h2>📊 Progress</h2>"+
+
+"<p>Your performance by subject.</p>"+
+
+'<div class="card" style="margin-top:15px">'+
+
+"<table>"+
+
+"<tr>"+
+"<td><b>Subject</b></td>"+
+"<td><b>Answered / Accuracy</b></td>"+
+"</tr>"+
+
+rows+
+
+"</table>"+
+
+"</div>"+
+
+'<div class="card">'+
+
+"<h3>🎯 Daily Goal</h3>"+
+
+"<p>"+
+profile.stats.todayAnswered+
+" / "+
+profile.stats.dailyGoal+
+" questions completed today.</p>"+
+
+'<div class="progress">'+
+'<div style="width:'+
+Math.min(
+100,
+Math.round(
+profile.stats.todayAnswered/
+profile.stats.dailyGoal*
+100
+)
+)+
+'%"></div>'+
+"</div>"+
+
+"</div>"+
+
+'<div class="notice">'+
+"Keep practising. Mistakes are useful because they show you what to revise."+
+"</div>"+
+
+"</section>";
+
+$("progressBack").addEventListener(
+"click",
+function(){
+renderPage("profile");
+}
+);
+
+}
+
+
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
+function renderCalculator(){
+
+var expression="";
+
+$("main").innerHTML=
+
+'<section class="screen">'+
+
+'<button class="back" id="calcBack">← Back</button>'+
+
+"<h2>🧮 Calculator</h2>"+
+
+'<div class="card">'+
+
+'<div class="calc-display" id="calcDisplay">0</div>'+
+
+'<div class="calc-grid">'+
+
+'<button data-calc="C">C</button>'+
+'<button data-calc="(">(</button>'+
+'<button data-calc=")">)</button>'+
+'<button data-calc="/">÷</button>'+
+
+'<button data-calc="7">7</button>'+
+'<button data-calc="8">8</button>'+
+'<button data-calc="9">9</button>'+
+'<button data-calc="*">×</button>'+
+
+'<button data-calc="4">4</button>'+
+'<button data-calc="5">5</button>'+
+'<button data-calc="6">6</button>'+
+'<button data-calc="-">−</button>'+
+
+'<button data-calc="1">1</button>'+
+'<button data-calc="2">2</button>'+
+'<button data-calc="3">3</button>'+
+'<button data-calc="+">+</button>'+
+
+'<button data-calc="0">0</button>'+
+'<button data-calc=".">.</button>'+
+'<button data-calc="BACK">⌫</button>'+
+'<button class="equal" data-calc="=">=</button>'+
+
+"</div>"+
+
+"</div>"+
+
+"</section>";
+
+$("calcBack").addEventListener(
+"click",
+function(){
+renderPage("profile");
+}
+);
+
+var display=$("calcDisplay");
+
+var buttons=document.querySelectorAll("[data-calc]");
+
+for(var i=0;i<buttons.length;i++){
+
+buttons[i].addEventListener(
+"click",
+function(){
+
+var value=this.getAttribute("data-calc");
+
+if(value==="C"){
+
+expression="";
+display.textContent="0";
+return;
+
+}
+
+if(value==="BACK"){
+
+expression=
+expression.substring(
+0,
+expression.length-1
+);
+
+display.textContent=
+expression || "0";
+
+return;
+
+}
+
+if(value==="="){
+
+try{
+
+var result=safeCalculate(expression);
+
+expression=String(result);
+
+display.textContent=expression;
+
+}catch(error){
+
+display.textContent="Error";
+expression="";
+
+}
+
+return;
+
+}
+
+if(expression.length<40){
+
+expression+=value;
+
+display.textContent=expression;
+
+}
+
+}
+);
+
+}
+
+}
+
+
+/* =========================================================
+   SAFE CALCULATOR
+========================================================= */
+
+function safeCalculate(expression){
+
+if(!expression){
+throw new Error("Empty");
+}
+
+if(!/^[0-9+\-*/().\s]+$/.test(expression)){
+throw new Error("Invalid");
+}
+
+var tokens=expression.match(
+/\d+(?:\.\d+)?|[+\-*/()]|\s+/g
+);
+
+if(!tokens){
+throw new Error("Invalid");
+}
+
+var clean=[];
+
+for(var i=0;i<tokens.length;i++){
+
+if(!/\s/.test(tokens[i])){
+clean.push(tokens[i]);
+}
+
+}
+
+var position=0;
+
+function parseExpression(){
+
+var value=parseTerm();
+
+while(
+position<clean.length &&
+(clean[position]==="+" ||
+clean[position]==="-")
+){
+
+var operator=clean[position++];
+
+var right=parseTerm();
+
+if(operator==="+"){
+value+=right;
+}else{
+value-=right;
+}
+
+}
+
+return value;
+
+}
+
+
+function parseTerm(){
+
+var value=parseFactor();
+
+while(
+position<clean.length &&
+(clean[position]==="*" ||
+clean[position]==="/")
+){
+
+var operator=clean[position++];
+
+var right=parseFactor();
+
+if(operator==="*"){
+
+value*=right;
+
+}else{
+
+if(right===0){
+throw new Error("Zero");
+}
+
+value/=right;
+
+}
+
+}
+
+return value;
+
+}
+
+
+function parseFactor(){
+
+if(clean[position]==="-"){
+
+position++;
+
+return -parseFactor();
+
+}
+
+if(clean[position]==="+"){
+
+position++;
+
+return parseFactor();
+
+}
+
+if(clean[position]==="("){
+
+position++;
+
+var value=parseExpression();
+
+if(clean[position]!==")"){
+throw new Error("Parentheses");
+}
+
+position++;
+
+return value;
+
+}
+
+var token=clean[position++];
+
+if(
+!token ||
+!/^\d+(?:\.\d+)?$/.test(token)
+){
+
+throw new Error("Number");
+
+}
+
+return Number(token);
+
+}
+
+var result=parseExpression();
+
+if(position!==clean.length){
+throw new Error("Invalid");
+}
+
+if(!isFinite(result)){
+throw new Error("Invalid");
+}
+
+return Math.round(
+result*100000000
+)/100000000;
+
+}
+
+
+/* =========================================================
+   NAV BUTTONS
+========================================================= */
+
+var navButtons=
+document.querySelectorAll(".nav button");
+
+for(var i=0;i<navButtons.length;i++){
+
+navButtons[i].addEventListener(
+"click",
+function(){
+
+renderPage(
+this.getAttribute("data-page")
+);
+
+}
+);
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+function init(){
+
+loadProfile();
+
+if(
+profile &&
+profile.name &&
+profile.level &&
+profile.className &&
+Array.isArray(profile.subjects) &&
+profile.subjects.length>0
+){
+
+showApp();
+
+}else{
+
+profile=null;
+
+$("onboarding").classList.remove("hidden");
+$("app").classList.add("hidden");
+
+updateClasses();
+renderSubjectChips();
+renderTopicChips();
+
+}
+
+}
+
+
+window.addEventListener(
+"DOMContentLoaded",
+function(){
+
+$("levelInput").addEventListener(
+"change",
+updateClasses
+);
+
+$("startBtn").addEventListener(
+"click",
+startProfile
+);
+
+init();
+
+}
+);
+
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("StudyMate AI service worker registered"))
+      .catch(error => console.error("Service worker registration failed:", error));
+  });
+}
+</script>
+</body>
+  </html>
